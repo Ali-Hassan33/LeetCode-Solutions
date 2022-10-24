@@ -1,1 +1,28 @@
-https://leetcode.com/problems/sudoku-solver/solutions/2048074/backtracking-bit-manipulation-java-detailed-explanation/?orderBy=most_votes&topicTags=bit-manipulation
+static boolean doSolve(char[][] board, int serial) {
+        int i = serial / 9;// behaving as row
+        int j = serial % 9;// behaving as column
+        // note that j can only be 0,1,
+        if(serial>80)      // base case
+            return true;
+        if (board[i][j] == '.'){
+            for (char num = '1'; num <= '9'; num++) {
+                if (isValid(board, i, j, num)) {
+                    board[i][j] = num;
+                    if (doSolve(board, serial + 1))
+                        return true;
+                    board[i][j] = '.';
+                }
+            }
+            //if any of the number is not able to fill the current gap it means we have to fill the previous gaps with some other possible numbers.
+            return false;
+        }
+        else
+            return (doSolve(board, serial + 1));
+    }
+    static boolean isValid(char[][] board, int row, int col, char num) {
+        int blkrow = (row / 3) * 3, blkcol = (col / 3) * 3; // Block no. is i/3, first element is i/3*3
+        for (int i = 0; i < 9; i++)
+            if (board[i][col] == num || board[row][i] == num || board[blkrow + i / 3][blkcol + i % 3] == num)
+                return false;
+        return true;
+    }
