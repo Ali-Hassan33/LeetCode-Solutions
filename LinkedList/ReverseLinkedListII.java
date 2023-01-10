@@ -15,7 +15,8 @@ public ListNode reverseBetween(ListNode head, int m, int n) {
         // defining the (temporary)position for forw 
         ListNode forw=curr.next;
         // note that the order of these lines down here can't be changed.        
-        // To tackle this problem , there is a trick shown in the figure.
+        // To tackle this problem , there is a trick that match the nodes by going reverse for example
+        //   4->5      see which node to  match with this ... and in this way this problem can be tackled.
         curr.next=forw.next;
         forw.next=prev.next;
         prev.next=forw;        
